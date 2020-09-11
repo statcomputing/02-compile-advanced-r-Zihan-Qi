@@ -1,0 +1,59 @@
+---
+title: "Problems and Solving Process with Compiling Adv-r book"
+author: "Zihan Qi"
+date: "9/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Download the adv-r using git and follow the instructions by Yihui for bookdown
+
+Use git clone https://github.com/hadley/adv-r.git to get the adv-r folder and open the adv-r.Rproj. Download the bookdown Github repo as a zip file from https://github.com/rstudio/bookdown-demo. Follow the instructions made by Yihui for bookdown from https://bookdown.org/yihui/bookdown/get-started.html. After doing these, build the adv-r book with bookdown using Rstudio. Run the knit for index.rmd and find the packages missing. Then, use Build Book button to get the book. Below are some of the R-packages missed during the build process.
+
+## Missing Packages
+
+lobstr [install.packages("lobstr")]
+emo [devtools::install_github("hadley/emo")] Notice: if you do not have devtools package before, install devtools packages first
+sloop [install.packages("sloop")]
+DBI [install.packages("DBI")]
+RSQLite [install.packages("RSQLite")]
+zeallot [install.packages("zeallot")]
+dbplyr [install.packages("dbplyr")]
+profvis [install.packages("profvis")]
+bench [install.packages("bench")]
+ggbeeswarm [install.packages("ggbeeswarm")]
+
+##Other Error messages
+1.Error in dev.control(displaylist = if (record) "enable" else "inhibit") : 
+  dev.control() called without an open graphics device
+  
+Solve Process: From https://github.com/brentthorne/posterdown/issues/42
+a. download xquartz
+b. install Cairo
+c. install posterdown
+d. install tinytex
+
+2. Error: LaTeX failed to compile _main.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See _main.log for more info.
+
+Solve Process: From https://yihui.org/tinytex/r/#debugging 
+remotes::install_github('yihui/tinytex')
+tinytex::install_tinytex()
+
+3. Package fontspec Error: The font "Inconsolata" cannot be found.
+
+Solve Process: Download Inconsolata font from Google font, install it on the computer. 
+
+4. LaTeX Error: Environment sidebar undefined
+
+Solve Process: From https://yihui.org/tinytex/r/#debugging 
+remotes::install_github('rstudio/rmarkdown')
+update.packages(ask = FALSE, checkBuilt = TRUE)
+tinytex::tlmgr_update()
+
+
+##Result
+Output created: _book/_main.pdf
+
